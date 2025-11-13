@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Furniture Articals - Premium Home Furnishings</title>
+    <title>Furniture Articles</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <style>
@@ -239,15 +239,10 @@
         .product-card {
             position: relative;
             transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            background: white;
         }
 
         .product-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
         .product-image {
@@ -261,9 +256,8 @@
         }
 
         .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-width: 100%;
+            max-height: 100%;
             transition: transform 0.5s;
         }
 
@@ -332,7 +326,7 @@
         }
 
         .product-info {
-            padding: 20px;
+            padding: 20px 0;
             text-align: center;
         }
 
@@ -832,6 +826,8 @@
                     <p>Stay connected with us on social media</p>
                     <div class="social-icons">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
                     </div>
                 </div>
             </div>
@@ -842,126 +838,73 @@
     </footer>
 
     <script>
-        // Vercel-compatible data storage - MUST MATCH ADMIN PANEL
-        function getStorageKey() {
-            return 'furnitureArticals_posts_v2';
-        }
-
-        // Safe data loader with fallback
-        function loadPostsData() {
-            try {
-                const storageKey = getStorageKey();
-                const storedData = localStorage.getItem(storageKey);
-                
-                if (!storedData) {
-                    console.log('No data found in localStorage');
-                    return [];
-                }
-                
-                const posts = JSON.parse(storedData);
-                console.log('Loaded posts:', posts);
-                return Array.isArray(posts) ? posts : [];
-            } catch (error) {
-                console.error('Error loading posts:', error);
-                return [];
-            }
-        }
-
         // Load posts from localStorage
         function loadPosts() {
             const postsContainer = document.getElementById('posts-container');
+            const posts = JSON.parse(localStorage.getItem('furniturePosts')) || [];
             
-            try {
-                const posts = loadPostsData();
-                
-                postsContainer.innerHTML = '';
-                
-                if (posts.length === 0) {
-                    postsContainer.innerHTML = `
-                        <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
-                            <i class="fas fa-box-open" style="font-size: 48px; color: #e8c284; margin-bottom: 20px;"></i>
-                            <h3 style="color: #666; margin-bottom: 10px;">No Furniture Available</h3>
-                            <p style="color: #999;">New furniture collections coming soon. Please check back later.</p>
-                            <div style="margin-top: 20px;">
-                                <a href="admin.html" class="btn" style="margin: 5px;">
-                                    <i class="fas fa-cog"></i> Admin Panel
-                                </a>
-                            </div>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                posts.forEach(post => {
-                    const postElement = document.createElement('div');
-                    postElement.className = 'product-card';
-                    postElement.innerHTML = `
-                        <div class="product-image">
-                            <img src="${post.image}" alt="${post.title}" 
-                                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80'">
-                            <div class="product-actions">
-                                <div class="action-btn" onclick="addToWishlist('${post.id}')">
-                                    <i class="far fa-heart"></i>
-                                </div>
-                                <div class="action-btn" onclick="showProductDetails('${post.id}')">
-                                    <i class="far fa-eye"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-title">${post.title}</h3>
-                            <p class="product-description">${post.description.substring(0, 100)}...</p>
-                            <button class="btn btn-whatsapp" onclick="openWhatsApp('${post.id}')">
-                                <i class="fab fa-whatsapp"></i> Contact via WhatsApp
-                            </button>
-                        </div>
-                    `;
-                    postsContainer.appendChild(postElement);
-                });
-            } catch (error) {
-                console.error('Error displaying posts:', error);
+            postsContainer.innerHTML = '';
+            
+            if (posts.length === 0) {
                 postsContainer.innerHTML = `
                     <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
-                        <i class="fas fa-exclamation-triangle" style="font-size: 48px; color: #e65540; margin-bottom: 20px;"></i>
-                        <h3 style="color: #666; margin-bottom: 10px;">Error Loading Furniture</h3>
-                        <p style="color: #999;">Please refresh the page or contact support.</p>
-                        <div style="margin-top: 20px;">
-                            <button class="btn" onclick="location.reload()">
-                                <i class="fas fa-redo"></i> Refresh Page
-                            </button>
-                        </div>
+                        <i class="fas fa-box-open" style="font-size: 48px; color: #e8c284; margin-bottom: 20px;"></i>
+                        <h3 style="color: #666; margin-bottom: 10px;">No Furniture Available</h3>
+                        <p style="color: #999;">Check back later for new furniture collections.</p>
                     </div>
                 `;
+                return;
             }
+            
+            posts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.className = 'product-card';
+                postElement.innerHTML = `
+                    <div class="product-image">
+                        <img src="${post.image}" alt="${post.title}" onerror="this.src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60'">
+                        <div class="product-actions">
+                            <div class="action-btn" onclick="addToWishlist('${post.id}')">
+                                <i class="far fa-heart"></i>
+                            </div>
+                            <div class="action-btn" onclick="showProductDetails('${post.id}')">
+                                <i class="far fa-eye"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${post.title}</h3>
+                        <p class="product-description">${post.description.substring(0, 100)}...</p>
+                        <button class="btn btn-whatsapp" onclick="openWhatsApp('${post.id}')">
+                            <i class="fab fa-whatsapp"></i> Contact via WhatsApp
+                        </button>
+                    </div>
+                `;
+                postsContainer.appendChild(postElement);
+            });
         }
 
         // Show product details modal
         function showProductDetails(postId) {
-            try {
-                const posts = loadPostsData();
-                const post = posts.find(p => p.id === postId);
+            const posts = JSON.parse(localStorage.getItem('furniturePosts')) || [];
+            const post = posts.find(p => p.id === postId);
+            
+            if (post) {
+                document.getElementById('modal-title').textContent = post.title;
+                document.getElementById('modal-body').innerHTML = `
+                    <div class="modal-image" style="background-image: url('${post.image}')"></div>
+                    <div class="modal-details">
+                        <span class="modal-category">${post.category}</span>
+                        <h3>${post.title}</h3>
+                        <p>${post.description}</p>
+                        <p><strong>Added:</strong> ${post.createdAt}</p>
+                        <button class="btn btn-whatsapp" onclick="openWhatsApp('${post.id}')" style="margin-top: 20px;">
+                            <i class="fab fa-whatsapp"></i> Contact via WhatsApp
+                        </button>
+                    </div>
+                `;
                 
-                if (post) {
-                    document.getElementById('modal-title').textContent = post.title;
-                    document.getElementById('modal-body').innerHTML = `
-                        <div class="modal-image" style="background-image: url('${post.image}')"></div>
-                        <div class="modal-details">
-                            <span class="modal-category">${post.category}</span>
-                            <h3>${post.title}</h3>
-                            <p>${post.description}</p>
-                            <p><strong>Added:</strong> ${post.createdAt}</p>
-                            <button class="btn btn-whatsapp" onclick="openWhatsApp('${post.id}')" style="margin-top: 20px;">
-                                <i class="fab fa-whatsapp"></i> Contact via WhatsApp
-                            </button>
-                        </div>
-                    `;
-                    
-                    document.getElementById('product-modal').classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }
-            } catch (error) {
-                console.error('Error showing product details:', error);
-                alert('Error loading product details');
+                document.getElementById('product-modal').classList.add('active');
+                document.body.style.overflow = 'hidden';
             }
         }
 
@@ -981,38 +924,29 @@
 
         // WhatsApp function
         function openWhatsApp(postId) {
-            try {
-                const posts = loadPostsData();
-                const post = posts.find(p => p.id === postId);
-                
-                if (post) {
-                    const message = encodeURIComponent(post.whatsappMessage + ' - ' + post.title);
-                    window.open(`https://wa.me/447405338093?text=${message}`, '_blank');
-                }
-            } catch (error) {
-                console.error('Error opening WhatsApp:', error);
-                alert('Error opening WhatsApp');
+            const posts = JSON.parse(localStorage.getItem('furniturePosts')) || [];
+            const post = posts.find(p => p.id === postId);
+            
+            if (post) {
+                const message = encodeURIComponent(post.whatsappMessage + ' - ' + post.title);
+                window.open(`https://wa.me/447405338093?text=${message}`, '_blank');
             }
         }
 
         // Add to wishlist function
         function addToWishlist(postId) {
-            try {
-                const posts = loadPostsData();
-                const post = posts.find(p => p.id === postId);
-                
-                if (post) {
-                    alert(`Added "${post.title}" to your wishlist!`);
-                }
-            } catch (error) {
-                console.error('Error adding to wishlist:', error);
+            const posts = JSON.parse(localStorage.getItem('furniturePosts')) || [];
+            const post = posts.find(p => p.id === postId);
+            
+            if (post) {
+                alert(`Added "${post.title}" to your wishlist!`);
             }
         }
 
         // Search functionality
         document.getElementById('search-btn').addEventListener('click', function() {
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
-            const posts = loadPostsData();
+            const posts = JSON.parse(localStorage.getItem('furniturePosts')) || [];
             const postsContainer = document.getElementById('posts-container');
             
             if (searchTerm.trim() === '') {
@@ -1044,8 +978,7 @@
                 postElement.className = 'product-card';
                 postElement.innerHTML = `
                     <div class="product-image">
-                        <img src="${post.image}" alt="${post.title}" 
-                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80'">
+                        <img src="${post.image}" alt="${post.title}" onerror="this.src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60'">
                         <div class="product-actions">
                             <div class="action-btn" onclick="addToWishlist('${post.id}')">
                                 <i class="far fa-heart"></i>
@@ -1114,10 +1047,6 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Page loaded successfully');
-            console.log('Storage key:', getStorageKey());
-            console.log('Available posts:', loadPostsData());
-            
             loadPosts();
         });
     </script>
