@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furniture Articles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c2c2c;
+            --accent-color: #e8c284;
+            --light-color: #f9f9f9;
+            --text-color: #333;
+            --border-color: #eaeaea;
+            --sale-color: #e65540;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-color);
+            background-color: #fff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            border-radius: 25px;
+            padding: 8px 15px;
+            width: 300px;
+        }
+
+        .search-bar input {
+            border: none;
+            background: transparent;
+            outline: none;
+            flex: 1;
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+
+        .search-bar button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+
+        /* Hero Slider */
+        .hero-slider {
+            position: relative;
+            height: 80vh;
+            overflow: hidden;
+            margin-bottom: 80px;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide-content {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+            max-width: 500px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .slide-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+
+        .slide-content p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dot.active {
+            background: white;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+        }
+
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            width: 100%;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #128C7E;
+            color: white;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 32px;
+            font-weight: 300;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+
+        /* Products Section */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .product-card {
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            height: 300px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-badges {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .product-badge {
+            padding: 5px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-new {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .badge-sale {
+            background-color: var(--sale-color);
+            color: white;
+        }
+
+        .product-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .product-card:hover .product-actions {
+            opacity: 1;
+        }
+
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .action-btn:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .product-info {
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .product-title {
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .product-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        /* Product Detail Modal */
+        .product-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .product-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 900px;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-header h2 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .modal-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+        }
+
+        .modal-details h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .modal-details p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .modal-category {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--primary-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        /* Featured Section */
+        .featured-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 80px;
+            align-items: center;
+        }
+
+        .featured-image {
+            height: 500px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .featured-content {
+            padding: 0 40px;
+        }
+
+        .featured-content h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .featured-content p {
+            margin-bottom: 30px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background-color: var(--light-color);
+            padding: 80px 0;
+            margin-bottom: 80px;
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .testimonial-content {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .testimonial-role {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        .newsletter h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .newsletter p {
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #ccc;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .newsletter-form button {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 0 30px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .newsletter-form button:hover {
+            background-color: #d4b074;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h4 {
+            font-size: 18px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h4:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+
+        .footer-contact p {
+            margin-bottom: 15px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .featured-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-body {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .slide-content h1 {
+                font-size: 36px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .search-bar {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input {
+                margin-bottom: 10px;
+            }
+            
+            .search-bar {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="logo">Furniture Articals</div>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search furniture..." id="search-input">
+                    <button type="button" id="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Slider -->
+    <section class="hero-slider">
+        <div class="slide active" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80');">
+            <div class="slide-content">
+                <h1>Premium Furniture Collection</h1>
+                <p>Discover elegant and comfortable furniture for your home</p>
+                <a href="#featured-posts" class="btn">Explore Now</a>
+            </div>
+        </div>
+        <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80');">
+            <div class="slide-content">
+                <h1>Modern Design Solutions</h1>
+                <p>Transform your space with contemporary furniture designs</p>
+                <a href="#featured-posts" class="btn">Shop Collection</a>
+            </div>
+        </div>
+        <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80');">
+            <div class="slide-content">
+                <h1>Luxury Comfort</h1>
+                <p>Experience unparalleled comfort with our premium collection</p>
+                <a href="#featured-posts" class="btn">View Products</a>
+            </div>
+        </div>
+        <div class="slider-dots">
+            <div class="dot active" data-slide="0"></div>
+            <div class="dot" data-slide="1"></div>
+            <div class="dot" data-slide="2"></div>
+        </div>
+    </section>
+
+    <!-- Featured Posts -->
+    <section class="container" id="featured-posts">
+        <h2 class="section-title">Featured Furniture</h2>
+        <div class="products-grid" id="posts-container">
+            <!-- Posts will be loaded here from localStorage -->
+        </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section class="container">
+        <div class="featured-section">
+            <div class="featured-image" style="background-image: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80')"></div>
+            <div class="featured-content">
+                <h2>Modern Design Meets Comfort</h2>
+                <p>Our furniture collection combines contemporary design with exceptional comfort. Each piece is crafted with attention to detail and made from high-quality materials to ensure longevity and style.</p>
+                <p>Transform your home with our carefully curated selection of furniture and decor that reflects your personal style while providing functionality for everyday living.</p>
+                <a href="#featured-posts" class="btn">View Collection</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="testimonial-slider">
+                <div class="testimonial-content">
+                    "I absolutely love my new sofa from Furniture Articals! The quality is exceptional and it completely transformed my living room. The delivery was prompt and the customer service was outstanding."
+                </div>
+                <div class="testimonial-author">Sarah Johnson</div>
+                <div class="testimonial-role">Interior Designer</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Detail Modal -->
+    <div class="product-modal" id="product-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Product Details</h2>
+                <button class="close-modal" id="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Product details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Newsletter & Footer -->
+    <section class="newsletter">
+        <div class="container">
+            <h3>Join Our Newsletter</h3>
+            <p>Subscribe to receive updates, access to exclusive deals, and more.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit" class="btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Contact Information</h4>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Furniture Street, City</p>
+                        <p><i class="fas fa-phone"></i> +1 234 567 8900</p>
+                        <p><i class="fas fa-envelope"></i> info@furniturearticals.com</p>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Follow Us</h4>
+                    <p>Stay connected with us on social media</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Furniture Articals. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Load posts from localStorage
+        function loadPosts() {
+            const postsContainer = document.getElementById('posts-container');
+            const posts = JSON.parse(localStorage.getItem('furniturePosts')) || [];
+            
+            postsContainer.innerHTML = '';
+            
+            if (posts.length === 0) {
+                postsContainer.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+                        <i class="fas fa-box-open" style="font-size: 48px; color: #e8c284; margin-bottom: 20px;"></i>
+                        <h3 style="color: #666; margin-bottom: 10px;">No Furniture Available</h3>
+                        <p style="color: #999;">Check back later for new furniture collections.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            posts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.className = 'product-card';
+                postElement.innerHTML = `
+                    <div class="product-image">
+                        <img src="${post.image}" alt="${post.title}">
+                        <div class="product-actions">
+                            <div class="action-btn" onclick="addToWishlist('${post.id}')">
+                                <i class="far fa-heart"></i>
+                            </div>
+                            <div class="action-btn" onclick="showProductDetails('${post.id}')">
+                                <i class="far fa-eye"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${post.title}</h3>
+                        <p class="product-description">${post.description.substring(0, 100)}...</p>
+                        <button class="btn btn-whatsapp" onclick="openWhatsApp('${post.id}')">
+                            <i class="fab fa-whatsapp"></i> Contact via WhatsApp
+                        </button>
+                    </div>
+                `;
+                postsContainer.appendChild(postElement);
+            });
+        }
+
+        // Show product details modal
+        function showProductDetails(postId) {
+            const posts = JSON.parse(localStorage.getItem('furniturePosts')) || [];
+            const post = posts.find(p => p.id === postId);
+            
+            if (post) {
+                document.getElementById('modal-title').textContent = post.title;
+                document.getElementById('modal-body').innerHTML = `
+                    <div class="modal-image" style="background-image: url('${post.image}')"></div>
+                    <div class="modal-details">
+                        <span class="modal-category">${post.category}</span>
+                        <h3>${post.title}</h3>
+                        <p>${post.description}</p>
+                        <p><strong>Added:</strong> ${post.createdAt}</p>
+                        <button class="btn btn-whatsapp" onclick="openWhatsApp('${post.id}')" style="margin-top: 20px;">
+                            <i class="fab fa-whatsapp"></i> Contact via WhatsApp
+                        </button>
+                    </div>
+                `;
+                
+                document.getElementById('product-modal').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Close modal
+        document.getElementById('close-modal').addEventListener('click', function() {
+            document.getElementById('product-modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('product-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // WhatsApp function
+        function openWhatsApp(postId) {
+            const posts = JSON.parse(localStorage.getItem('furniturePosts')) || [];
+            const post = posts.find(p => p.id === postId);
+            
+            if (post) {
+                const message = encodeURIComponent(post.whatsappMessage + ' - ' + post.title);
+                window.open(`https://wa.me/447405338093?text=${message}`, '_blank');
+            }
+        }
+
+        // Add to wishlist function
+        function addToWishlist(postId) {
+            const posts = JSON.parse(localStorage.getItem('furniturePosts')) || [];
+            const post = posts.find(p => p.id === postId);
+            
+            if (post) {
+                alert(`Added "${post.title}" to your wishlist!`);
+            }
+        }
+
+        // Search functionality
+        document.getElementById('search-btn').addEventListener('click', function() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const posts = JSON.parse(localStorage.getItem('furniturePosts')) || [];
+            const postsContainer = document.getElementById('posts-container');
+            
+            if (searchTerm.trim() === '') {
+                loadPosts();
+                return;
+            }
+            
+            const filteredPosts = posts.filter(post => 
+                post.title.toLowerCase().includes(searchTerm) || 
+                post.description.toLowerCase().includes(searchTerm) ||
+                post.category.toLowerCase().includes(searchTerm)
+            );
+            
+            postsContainer.innerHTML = '';
+            
+            if (filteredPosts.length === 0) {
+                postsContainer.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+                        <i class="fas fa-search" style="font-size: 48px; color: #e8c284; margin-bottom: 20px;"></i>
+                        <h3 style="color: #666; margin-bottom: 10px;">No Results Found</h3>
+                        <p style="color: #999;">No furniture matching "${searchTerm}" was found.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredPosts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.className = 'product-card';
+                postElement.innerHTML = `
+                    <div class="product-image">
+                        <img src="${post.image}" alt="${post.title}">
+                        <div class="product-actions">
+                            <div class="action-btn" onclick="addToWishlist('${post.id}')">
+                                <i class="far fa-heart"></i>
+                            </div>
+                            <div class="action-btn" onclick="showProductDetails('${post.id}')">
+                                <i class="far fa-eye"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${post.title}</h3>
+                        <p class="product-description">${post.description.substring(0, 100)}...</p>
+                        <button class="btn btn-whatsapp" onclick="openWhatsApp('${post.id}')">
+                            <i class="fab fa-whatsapp"></i> Contact via WhatsApp
+                        </button>
+                    </div>
+                `;
+                postsContainer.appendChild(postElement);
+            });
+        });
+
+        // Enter key search
+        document.getElementById('search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('search-btn').click();
+            }
+        });
+
+        // Slider functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            currentSlide = n;
+            if (currentSlide >= slides.length) currentSlide = 0;
+            if (currentSlide < 0) currentSlide = slides.length - 1;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        // Auto slide
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 5000);
+
+        // Dot click events
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const slideIndex = parseInt(this.getAttribute('data-slide'));
+                showSlide(slideIndex);
+            });
+        });
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPosts();
+        });
+    </script>
+</body>
+</html>
